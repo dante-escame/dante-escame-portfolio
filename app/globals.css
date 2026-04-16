@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #020103;
+  --color-bg-elevated: #0b0610;
+  --color-panel: rgba(30, 10, 38, 0.78);
+  --color-heading: #f6d8ff;
+  --color-text: #ee0869;
+  --color-accent: #800080;
+  --color-pink: #df024a;
+  --color-cyan: #0dcdcd;
+  --color-gold: #f9f338;
+  --color-border: rgba(128, 0, 128, 0.52);
+  --color-border-cyan: rgba(13, 205, 205, 0.48);
+  --shadow-glow-soft: 0 0 24px rgba(128, 0, 128, 0.32);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(128, 0, 128, 0.16), transparent 26%),
+    radial-gradient(circle at 82% 16%, rgba(13, 205, 205, 0.07), transparent 18%),
+    linear-gradient(180deg, #09030d 0%, #040206 46%, #010101 100%);
+  color: var(--color-text);
+  font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 12px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.panel-cut {
+  position: relative;
+  border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, rgba(39, 12, 49, 0.82), rgba(20, 7, 26, 0.78));
+  padding: 1.5rem;
+  box-shadow: var(--shadow-glow-soft);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  backdrop-filter: blur(6px);
+}
+
+.panel-cut-cyan {
+  border-color: var(--color-cyan);
+}
+
+.panel-cut::before {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(223, 2, 74, 0.18);
+  content: "";
+  pointer-events: none;
+  clip-path: inherit;
+}
+
+.panel-cut-cyan::before {
+  border-color: rgba(13, 205, 205, 0.22);
+}
+
+::selection {
+  background: rgba(13, 205, 205, 0.35);
+  color: #09030d;
+}

@@ -1,0 +1,1 @@
+Please use AGENTS.md. This file is just a pointer to [AGENTS.md](/home/fulmination/Documents/my_reps/dante-escame-portfolio/AGENTS.md).
