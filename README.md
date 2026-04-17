@@ -1,6 +1,6 @@
 # Dante Escame Portfolio
 
-This repository is the real portfolio project for Dante Escame.
+Welcome to my professional (and a little bit personal) portfolio showcase.
 
 ## Chosen Stack
 - Next.js 16
