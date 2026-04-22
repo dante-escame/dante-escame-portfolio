@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg: #020103;
-  --color-bg-elevated: #0b0610;
-  --color-panel: rgba(30, 10, 38, 0.78);
+  --color-bg: #010104;
+  --color-bg-elevated: #08040d;
+  --color-panel: rgba(12, 4, 18, 0.92);
   --color-heading: #f6d8ff;
   --color-text: #ee0869;
   --color-accent: #800080;
@@ -27,9 +27,9 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(128, 0, 128, 0.16), transparent 26%),
-    radial-gradient(circle at 82% 16%, rgba(13, 205, 205, 0.07), transparent 18%),
-    linear-gradient(180deg, #09030d 0%, #040206 46%, #010101 100%);
+    radial-gradient(circle at top, rgba(128, 0, 128, 0.12), transparent 26%),
+    radial-gradient(circle at 82% 16%, rgba(13, 205, 205, 0.05), transparent 18%),
+    linear-gradient(180deg, #06020a 0%, #020104 46%, #000001 100%);
   color: var(--color-text);
   font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", monospace;
   font-size: 12px;
@@ -57,7 +57,7 @@ a {
 .panel-cut {
   position: relative;
   border: 1px solid var(--color-border);
-  background: linear-gradient(180deg, rgba(39, 12, 49, 0.82), rgba(20, 7, 26, 0.78));
+  background: linear-gradient(180deg, rgba(18, 6, 26, 0.92), rgba(6, 3, 10, 0.9));
   padding: 1.5rem;
   box-shadow: var(--shadow-glow-soft);
   clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
