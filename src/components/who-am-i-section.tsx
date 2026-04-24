@@ -16,20 +16,89 @@ import {
 const experienceStartYear = 2018;
 const techBreadth = "10+";
 
+const sectionBadges = {
+  label: "Who Am I",
+  name: "Dante Escame",
+  role: "Full-stack engineer",
+  availability: "Remote-ready",
+};
+
+const profileSignal = {
+  badge: "Profile signal",
+  title: "Full-stack software engineer",
+  quote: '"Everything should be made as simple as possible, but not simpler."',
+  portraitAlt: "Portrait of Dante Escame",
+};
+
 const stackSignals = [
-  "TypeScript systems: Node, React and Next",
-  "Full-stack delivery: ",
-  "Backend delivery with C#, .NET 10, EF Core and Dapper",
-  "Domain Driven Design, Vertical Slices and CQRS",
-  "Performance-oriented debugging",
-  "UI polish with intent",
+  "Full-stack delivery: Node, React and Next",
+  "High-volume processing backend systems: C#, .NET 10, EF Core and Dapper",
+  "Asynchronous messaging: Network domain and integrations events",
+  "Architecture Knowledge: Domain Driven Design, Event Driven Flows, Vertical Slices and CQRS",
+  "Complete test pyramid: unit tests, integration tests and E2E tests",
+  "Cloud Integration: experience with Amazon Web Services"
 ];
 
-const personalNotes = [
-  "Reading keeps the taste level sharp.",
-  "Gym work keeps the routine disciplined.",
-  "I prefer clarity over noise in both code and communication.",
+const stackSection = {
+  note: "Core stack signal",
+  title: "What I tend to build around",
+};
+
+const introCopy = [
+  "Hi, I'm Dante. I build products with a delivery mindset and a focus on backend performance. By applying optimal market patterns,",
+  "The goal is straightforward: ship work that feels precise, maintainable, and worth using.",
 ];
+
+const profileChips = [
+  "Full-stack software engineer",
+  "Backend performance aware",
+  `Experience since ${experienceStartYear}`,
+  "Open to serious builds",
+];
+
+const operatingModeCopy = {
+  title: "Operating Mode",
+  subtitle: "How I work",
+  paragraphs: [
+    "I like owning the path from product idea to implementation, then tightening the system until it feels reliable and easy to keep moving.",
+    "That usually means balancing frontend clarity, backend responsiveness, and enough taste to keep the final result sharp instead of noisy.",
+  ],
+};
+
+const collaborationCopy = {
+  title: "Collaboration Signal",
+  subtitle: "Current posture",
+  paragraph:
+    "Open to remote collaboration, full-time roles, and contract work where the product direction is clear and the build quality matters.",
+  priorityTitle: "Priority",
+  priority:
+    "Useful software first. Visual style and technical depth should support that, not distract from it.",
+};
+
+const profileMetrics = {
+  stackBreadth: {
+    title: "Stack breadth",
+    description: "Technologies used across product delivery",
+    badge: "Breadth",
+  },
+  experience: {
+    title: "Experience",
+    badge: "Timeline",
+  },
+};
+
+const sectionActions = {
+  work: "See My Work",
+  cv: "Download CV",
+};
+
+const personalNotes = [
+  "I enjoy reading old russian romances and sci-fi.",
+  "I never miss a day of gym.",
+  "Life would not be the same without travels and beach.",
+];
+
+const personalSectionTitle = "Outside the terminal";
 
 function getExperienceLabel(currentYear: number) {
   const elapsedYears = Math.max(1, currentYear - experienceStartYear);
@@ -50,10 +119,10 @@ export function WhoAmISection() {
 
         <div className="relative z-10 space-y-6">
           <div className="flex flex-wrap items-center gap-3">
-            <CyberBadge variant="cyan">Who Am I</CyberBadge>
-            <CyberTag variant="pink">Dante Escame</CyberTag>
-            <CyberTag>Full-stack engineer</CyberTag>
-            <CyberTag variant="gold">Remote-ready</CyberTag>
+            <CyberBadge variant="cyan">{sectionBadges.label}</CyberBadge>
+            <CyberTag variant="pink">{sectionBadges.name}</CyberTag>
+            <CyberTag>{sectionBadges.role}</CyberTag>
+            <CyberTag variant="gold">{sectionBadges.availability}</CyberTag>
           </div>
 
           <div className="space-y-6">
@@ -61,7 +130,7 @@ export function WhoAmISection() {
               <div className="grid gap-5 sm:grid-cols-[128px_1fr] sm:items-center">
                 <div className="top-portrait-frame mx-auto h-32 w-32 sm:mx-0">
                   <Image
-                      alt="Portrait of Dante Escame"
+                      alt={profileSignal.portraitAlt}
                       className="top-portrait-image"
                       fill
                       priority
@@ -73,13 +142,13 @@ export function WhoAmISection() {
 
                 <div className="space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <CyberBadge variant="purple">Profile signal</CyberBadge>
+                    <CyberBadge variant="purple">{profileSignal.badge}</CyberBadge>
                   </div>
                   <p className="text-lg font-semibold uppercase tracking-[0.14em] text-(--color-heading)">
-                    Full-stack software engineer
+                    {profileSignal.title}
                   </p>
                   <p className="text-sm leading-7 text-(--color-text)/85">
-                    "Everything should be made as simple as possible, but not simpler."
+                    {profileSignal.quote}
                   </p>
                 </div>
               </div>
@@ -87,8 +156,8 @@ export function WhoAmISection() {
 
             <TopicsInSquares
                 className="p-6"
-                note="Core stack signal"
-                title="What I tend to build around"
+                note={stackSection.note}
+                title={stackSection.title}
                 topics={stackSignals}
             />
           </div>
@@ -97,59 +166,42 @@ export function WhoAmISection() {
             <StylePanel className="w-full space-y-8 p-6 md:p-8">
               <div className="max-w-3xl text-sm leading-7 text-(--color-text) md:text-base">
                 <p>
-                  Hi, I&apos;m Dante. I build products with a delivery mindset and
-                  a focus on backend performance.
-                  By applying optimal market patterns,
+                  {introCopy[0]}
                 </p>
                 <p className="mt-4">
-                  The goal is straightforward: ship work that feels precise,
-                  maintainable, and worth using.
+                  {introCopy[1]}
                 </p>
               </div>
 
-              <StyleChipList
-                items={[
-                  "Full-stack software engineer",
-                  "Backend performance aware",
-                  `Experience since ${experienceStartYear}`,
-                  "Open to serious builds",
-                ]}
-              />
+              <StyleChipList items={profileChips} />
 
               <div className="grid gap-4 md:grid-cols-2">
                 <TextPatternBlock
-                  title="Operating Mode"
-                  subtitle="How I work"
+                  title={operatingModeCopy.title}
+                  subtitle={operatingModeCopy.subtitle}
                   variant="cyan"
                 >
                   <p>
-                    I like owning the path from product idea to implementation,
-                    then tightening the system until it feels reliable and easy
-                    to keep moving.
+                    {operatingModeCopy.paragraphs[0]}
                   </p>
                   <p>
-                    That usually means balancing frontend clarity, backend
-                    responsiveness, and enough taste to keep the final result
-                    sharp instead of noisy.
+                    {operatingModeCopy.paragraphs[1]}
                   </p>
                 </TextPatternBlock>
 
                 <TextPatternBlock
-                  title="Collaboration Signal"
-                  subtitle="Current posture"
+                  title={collaborationCopy.title}
+                  subtitle={collaborationCopy.subtitle}
                 >
                   <p>
-                    Open to remote collaboration, full-time roles, and contract
-                    work where the product direction is clear and the build
-                    quality matters.
+                    {collaborationCopy.paragraph}
                   </p>
                   <AttentionBox
                     className="mt-4"
-                    title="Priority"
+                    title={collaborationCopy.priorityTitle}
                     variant="gold"
                   >
-                    Useful software first. Visual style and technical depth
-                    should support that, not distract from it.
+                    {collaborationCopy.priority}
                   </AttentionBox>
                 </TextPatternBlock>
               </div>
@@ -159,30 +211,30 @@ export function WhoAmISection() {
                 columnsClassName=""
                 items={[
                   {
-                    title: "Stack breadth",
+                    title: profileMetrics.stackBreadth.title,
                     value: techBreadth,
-                    description: "Technologies used across product delivery",
-                    meta: <CyberBadge variant="cyan">Breadth</CyberBadge>,
+                    description: profileMetrics.stackBreadth.description,
+                    meta: <CyberBadge variant="cyan">{profileMetrics.stackBreadth.badge}</CyberBadge>,
                   },
                   {
-                    title: "Experience",
+                    title: profileMetrics.experience.title,
                     value: experienceLabel,
                     description: `Shipping since ${experienceStartYear}`,
-                    meta: <CyberBadge variant="pink">Timeline</CyberBadge>,
+                    meta: <CyberBadge variant="pink">{profileMetrics.experience.badge}</CyberBadge>,
                   },
                 ]}
               />
 
               <div className="flex flex-wrap gap-3">
                 <Link className="action-link action-link-primary" href="#highlights">
-                  See My Work
+                  {sectionActions.work}
                 </Link>
                 <a
                   className="action-link action-link-secondary"
                   download
                   href="/Profile.pdf"
                 >
-                  Download CV
+                  {sectionActions.cv}
                 </a>
               </div>
             </StylePanel>
@@ -190,7 +242,7 @@ export function WhoAmISection() {
 
           <TopicsInList
               className="p-6"
-              title="Outside the terminal"
+              title={personalSectionTitle}
               topics={personalNotes}
           />
         </div>
