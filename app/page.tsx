@@ -1,5 +1,5 @@
-import { WhoAmISection } from "../src/components/who-am-i-section";
+import { PortfolioIntroLoader } from "../src/components/portfolio-intro-loader";
 
 export default function Home() {
-  return <WhoAmISection />;
+  return <PortfolioIntroLoader />;
 }

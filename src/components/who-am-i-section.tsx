@@ -154,12 +154,6 @@ export function WhoAmISection() {
               </div>
             </StylePanel>
 
-            <TopicsInSquares
-                className="p-6"
-                note={stackSection.note}
-                title={stackSection.title}
-                topics={stackSignals}
-            />
           </div>
 
           <section className="w-full">
@@ -239,6 +233,13 @@ export function WhoAmISection() {
               </div>
             </StylePanel>
           </section>
+
+          <TopicsInSquares
+              className="p-6"
+              note={stackSection.note}
+              title={stackSection.title}
+              topics={stackSignals}
+          />
 
           <TopicsInList
               className="p-6"
