@@ -34,6 +34,7 @@ export function PortfolioIntroLoader() {
     const columnCount = window.innerWidth < 768 ? 14 : 24;
     const columns: HTMLDivElement[] = [];
 
+    // Builds the ambient "digital rain" backdrop behind the loader copy.
     for (let index = 0; index < columnCount; index += 1) {
       const column = document.createElement("div");
       column.className = "intro-falling-column";
@@ -76,9 +77,11 @@ export function PortfolioIntroLoader() {
     const fadeDelay = loadingDurationSeconds - 0.6;
 
     const context = gsap.context(() => {
+      // Prepares the text stack and progress bar offscreen before the intro begins.
       gsap.set(progressBar, { scaleX: 0, transformOrigin: "left center" });
       gsap.set(activeLines, { autoAlpha: 0, y: 24 });
 
+      // Reveals the main three-line message in sequence at the center of the screen.
       gsap.to(activeLines, {
         autoAlpha: 1,
         duration: 0.82,
@@ -87,12 +90,14 @@ export function PortfolioIntroLoader() {
         y: 0,
       });
 
+      // Brings in the small system-status line above the headline.
       gsap.fromTo(
         ".intro-loading-kicker",
         { autoAlpha: 0, y: 18 },
         { autoAlpha: 1, delay: 0.1, duration: 0.7, ease: "power2.out", y: 0 }
       );
 
+      // Advances the numeric percentage so the screen reads like a boot sequence.
       gsap.to(progressState, {
         value: 100,
         duration: loadingDurationSeconds,
@@ -106,6 +111,7 @@ export function PortfolioIntroLoader() {
         },
       });
 
+      // Fills the visible loading bar in sync with the percentage readout.
       gsap.to(progressBar, {
         scaleX: 1,
         duration: loadingDurationSeconds,
@@ -125,6 +131,7 @@ export function PortfolioIntroLoader() {
       return;
     }
 
+    // Unlocks and reveals the CTA once the loading sequence is complete.
     gsap.fromTo(
       playButton,
       { autoAlpha: 0.4, y: 14 },
@@ -141,6 +148,7 @@ export function PortfolioIntroLoader() {
 
     setIsExiting(true);
 
+    // Fades the loader out before handing off to the portfolio page.
     gsap.to(root, {
       autoAlpha: 0,
       duration: 0.55,

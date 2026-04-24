@@ -196,6 +196,37 @@ body::before {
   animation: intro-glitch-bottom 2.1s steps(2, end) infinite;
 }
 
+.animated-signal-title {
+  position: relative;
+  width: fit-content;
+  margin: 0;
+  text-shadow:
+    0 0 10px rgba(246, 216, 255, 0.2),
+    0 0 18px rgba(223, 2, 74, 0.12);
+}
+
+.animated-signal-title::before,
+.animated-signal-title::after {
+  position: absolute;
+  inset: 0;
+  content: attr(data-text);
+  pointer-events: none;
+}
+
+.animated-signal-title::before {
+  color: rgba(13, 205, 205, 0.72);
+  transform: translate(1px, 0);
+  clip-path: inset(14% 0 62% 0);
+  animation: intro-glitch-top 2.8s steps(2, end) infinite;
+}
+
+.animated-signal-title::after {
+  color: rgba(223, 2, 74, 0.66);
+  transform: translate(-1px, 0);
+  clip-path: inset(58% 0 10% 0);
+  animation: intro-glitch-bottom 2.2s steps(2, end) infinite;
+}
+
 .intro-loading-progress {
   display: flex;
   width: min(28rem, 100%);

@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AttentionBox } from "./attention-box";
+import { AnimatedRevealText } from "./animated-reveal-text";
+import { AnimatedSignalTitle } from "./animated-signal-title";
 import { CyberBadge } from "./cyber-badge";
 import { CyberTag } from "./cyber-tag";
 import { TextPatternBlock } from "./text-pattern-block";
@@ -25,7 +27,7 @@ const sectionBadges = {
 
 const profileSignal = {
   badge: "Profile signal",
-  title: "Full-stack software engineer",
+  title: "Senior Software Engineer",
   quote: '"Everything should be made as simple as possible, but not simpler."',
   portraitAlt: "Portrait of Dante Escame",
 };
@@ -45,12 +47,12 @@ const stackSection = {
 };
 
 const introCopy = [
-  "Hi, I'm Dante. I build products with a delivery mindset and a focus on backend performance. By applying optimal market patterns,",
-  "The goal is straightforward: ship work that feels precise, maintainable, and worth using.",
+  "Senior Software Engineer with 6+ years of experience in full-stack development across high-impact, large-scale applications.",
+  "I build products with a delivery mindset and focus on backend performance, by applying market patterns with: .NET, C#, React, Node, Next, AWS, Kubernetes and Docker.",
 ];
 
 const profileChips = [
-  "Full-stack software engineer",
+  "Senior Software Engineer",
   "Backend performance aware",
   `Experience since ${experienceStartYear}`,
   "Open to serious builds",
@@ -144,12 +146,10 @@ export function WhoAmISection() {
                   <div className="flex flex-wrap items-center gap-2">
                     <CyberBadge variant="purple">{profileSignal.badge}</CyberBadge>
                   </div>
-                  <p className="text-lg font-semibold uppercase tracking-[0.14em] text-(--color-heading)">
-                    {profileSignal.title}
-                  </p>
-                  <p className="text-sm leading-7 text-(--color-text)/85">
+                  <AnimatedSignalTitle title={profileSignal.title} />
+                  <AnimatedRevealText className="text-sm leading-7 text-(--color-text)/85">
                     {profileSignal.quote}
-                  </p>
+                  </AnimatedRevealText>
                 </div>
               </div>
             </StylePanel>
@@ -159,12 +159,12 @@ export function WhoAmISection() {
           <section className="w-full">
             <StylePanel className="w-full space-y-8 p-6 md:p-8">
               <div className="max-w-3xl text-sm leading-7 text-(--color-text) md:text-base">
-                <p>
+                <AnimatedRevealText>
                   {introCopy[0]}
-                </p>
-                <p className="mt-4">
+                </AnimatedRevealText>
+                <AnimatedRevealText className="mt-4" delay={0.12}>
                   {introCopy[1]}
-                </p>
+                </AnimatedRevealText>
               </div>
 
               <StyleChipList items={profileChips} />
