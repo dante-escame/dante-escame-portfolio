@@ -4,65 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 
+import { DigitalRainBackground } from "./digital-rain-background";
+
 const introLines = [
   "Hi, i'm Dante.",
   "and this is my",
   "Immersive Cyberpunk Portfolio",
 ];
 
-const fallingChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const loadingDurationSeconds = 1.5;
 
 export function PortfolioIntroLoader() {
   const router = useRouter();
   const rootRef = useRef<HTMLElement>(null);
-  const columnsRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const playButtonRef = useRef<HTMLButtonElement>(null);
   const lineRefs = useRef<Array<HTMLParagraphElement | null>>([]);
   const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
-
-  useEffect(() => {
-    const columnsHost = columnsRef.current;
-
-    if (!columnsHost) {
-      return;
-    }
-
-    const columnCount = window.innerWidth < 768 ? 14 : 24;
-    const columns: HTMLDivElement[] = [];
-
-    // Builds the ambient "digital rain" backdrop behind the loader copy.
-    for (let index = 0; index < columnCount; index += 1) {
-      const column = document.createElement("div");
-      column.className = "intro-falling-column";
-      column.style.left = `${(100 / columnCount) * index}%`;
-      column.style.animationDelay = `${Math.random() * 3}s`;
-      column.style.animationDuration = `${7 + Math.random() * 6}s`;
-
-      const charCount = 14 + Math.floor(Math.random() * 16);
-
-      for (let charIndex = 0; charIndex < charCount; charIndex += 1) {
-        const char = document.createElement("div");
-        const opacity = (Math.random() * 0.45 + 0.12).toFixed(2);
-
-        char.className = "intro-falling-char";
-        char.textContent = fallingChars[Math.floor(Math.random() * fallingChars.length)];
-        char.style.opacity = opacity;
-        char.style.textShadow = `0 0 ${4 + Number(opacity) * 8}px rgba(223, 2, 74, 0.7)`;
-        column.appendChild(char);
-      }
-
-      columnsHost.appendChild(column);
-      columns.push(column);
-    }
-
-    return () => {
-      columns.forEach((column) => column.remove());
-    };
-  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -162,7 +122,7 @@ export function PortfolioIntroLoader() {
   return (
     <main ref={rootRef} className="intro-loading-screen">
       <div className="intro-loading-grid" aria-hidden="true" />
-      <div ref={columnsRef} className="intro-falling-numbers" aria-hidden="true" />
+      <DigitalRainBackground />
       <div className="intro-loading-noise" aria-hidden="true" />
 
       <section className="intro-loading-content" aria-label="Portfolio intro loading screen">
