@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { AnimatedRevealText } from "./animated-reveal-text";
 import { AnimatedSignalTitle } from "./animated-signal-title";
 import { CyberBadge } from "./cyber-badge";
 import { CyberTag } from "./cyber-tag";
 import { DigitalRainBackground } from "./digital-rain-background";
+import { IntroAvatar } from "./intro-avatar";
 import { PortfolioTechnologiesGrid } from "./portfolio-technologies-grid";
 import { StylePanel } from "./style-kit";
 
@@ -78,13 +80,44 @@ export function WhoAmISection() {
 
           <section className="w-full">
             <StylePanel className="w-full space-y-8 p-6 md:p-8">
-              <div className="w-full text-sm leading-7 text-(--color-text) md:text-base">
-                <AnimatedRevealText>
-                  {introCopy[0]}
-                </AnimatedRevealText>
-                <AnimatedRevealText className="mt-4" delay={0.12}>
-                  {introCopy[1]}
-                </AnimatedRevealText>
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
+                <div className="w-full text-sm leading-7 text-(--color-text) md:text-base">
+                  <AnimatedRevealText>
+                    {introCopy[0]}
+                  </AnimatedRevealText>
+                  <AnimatedRevealText className="mt-4" delay={0.12}>
+                    {introCopy[1]}
+                  </AnimatedRevealText>
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    <Link
+                      className="relative inline-flex items-center justify-center border border-(--color-gold) bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.15em] text-(--color-gold) transition-all duration-200 outline-none hover:bg-(--color-gold)/10 hover:shadow-[0_0_15px_rgba(249,243,56,0.4)] focus:ring-2 focus:ring-(--color-gold) focus:ring-offset-2 active:scale-95"
+                      download
+                      href="/Profile.pdf"
+                      style={{
+                        clipPath:
+                          "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+                      }}
+                    >
+                      Download My Resume
+                    </Link>
+
+                    <Link
+                      className="relative inline-flex items-center justify-center border border-(--color-cyan) bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.15em] text-(--color-cyan) transition-all duration-200 outline-none hover:bg-(--color-cyan)/10 hover:shadow-[0_0_15px_rgba(13,205,205,0.4)] focus:ring-2 focus:ring-(--color-cyan) focus:ring-offset-2 active:scale-95"
+                      href="https://www.linkedin.com/in/dante-escame/"
+                      rel="noreferrer"
+                      style={{
+                        clipPath:
+                          "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+                      }}
+                      target="_blank"
+                    >
+                      View my projects
+                    </Link>
+                  </div>
+                </div>
+
+                <IntroAvatar />
               </div>
             </StylePanel>
           </section>
