@@ -138,6 +138,55 @@ body::before {
   padding: 1.5rem;
 }
 
+.background-page-shell {
+  position: relative;
+  overflow: hidden;
+}
+
+.background-page-shell::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(223, 2, 74, 0.06), transparent 34%, rgba(13, 205, 205, 0.05) 76%, transparent),
+    radial-gradient(circle at 18% 12%, rgba(246, 216, 255, 0.08), transparent 18%),
+    radial-gradient(circle at 84% 20%, rgba(128, 0, 128, 0.22), transparent 24%);
+  content: "";
+  pointer-events: none;
+  z-index: 0;
+}
+
+.background-page-grid {
+  opacity: 0.28;
+}
+
+.background-page-noise {
+  opacity: 0.3;
+}
+
+.background-page-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.background-page-orb-left {
+  top: 7rem;
+  left: -5rem;
+  width: 16rem;
+  height: 16rem;
+  background: radial-gradient(circle, rgba(223, 2, 74, 0.22), transparent 68%);
+}
+
+.background-page-orb-right {
+  top: 18rem;
+  right: -4rem;
+  width: 14rem;
+  height: 14rem;
+  background: radial-gradient(circle, rgba(13, 205, 205, 0.14), transparent 70%);
+}
+
 .portfolio-tech-header {
   margin-bottom: 2rem;
 }
@@ -197,7 +246,7 @@ body::before {
     border-color 180ms ease,
     box-shadow 180ms ease,
     background-color 180ms ease;
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 22px));
 }
 
 .portfolio-tech-item:hover {
