@@ -62,6 +62,7 @@ This repository contains the Dante Escame portfolio project built upon Cyberpunk
 - `npm run build` to create the production build
 - `npm run start` to run the production server
 - `npm run ladle` to review reusable components
+- `npx tsx scripts/ingest-profile.ts` to sync LinkedIn data to MongoDB Atlas
 
 ## Delivery Notes
 - Keep top-level clutter low. Add new root files only when they support tooling, deployment, or project governance.

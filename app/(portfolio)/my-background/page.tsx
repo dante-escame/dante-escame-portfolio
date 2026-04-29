@@ -4,8 +4,29 @@ import { CyberTag } from "../../../src/components/cyber-tag";
 import { StylePanel, StylePanelHeader } from "../../../src/components/style-kit";
 
 import { BackgroundTimeline } from "./_components/background-timeline";
+import { getDatabase } from "../../../src/lib/mongodb";
+import { BackgroundRecord, mapRecordToTimelineItem } from "../../../src/lib/models";
 
-export default function MyBackgroundPage() {
+async function getTimelineData() {
+  try {
+    const db = await getDatabase();
+    const collection = db.collection<BackgroundRecord>("background_records");
+    
+    const records = await collection
+      .find({})
+      .sort({ startDate: 1 }) // Order by date (asc)
+      .toArray();
+
+    return records.map(mapRecordToTimelineItem);
+  } catch (error) {
+    console.error("Failed to fetch background data:", error);
+    return []; // Return empty if DB fails to avoid crashing
+  }
+}
+
+export default async function MyBackgroundPage() {
+  const timelineItems = await getTimelineData();
+
   return (
     <main className="min-h-screen overflow-x-hidden text-(--color-text)">
       <section
@@ -35,7 +56,7 @@ export default function MyBackgroundPage() {
               titleAs="h2"
             />
 
-            <BackgroundTimeline />
+            <BackgroundTimeline items={timelineItems.length > 0 ? timelineItems : undefined} />
           </StylePanel>
         </div>
       </section>

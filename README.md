@@ -43,3 +43,12 @@ Planned structure:
 - `npm run start`
 - `npm run ladle`
 - `npm run build-ladle`
+
+### Data Ingestion
+To update your background timeline with LinkedIn data:
+1. Update `data/profile-data.json` with your experience and education.
+2. Ensure `MONGODB_URI` is set in `.env.local`.
+3. Run the ingestion script:
+   ```bash
+   npx tsx scripts/ingest-profile.ts
+   ```
