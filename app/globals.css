@@ -649,54 +649,6 @@ a {
   padding: 1rem;
 }
 
-.action-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 0.8rem 1.15rem;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease;
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-}
-
-.action-link:hover {
-  transform: translateY(-1px);
-}
-
-.action-link:focus-visible {
-  outline: 2px solid var(--color-cyan);
-  outline-offset: 2px;
-}
-
-.action-link-primary {
-  background: var(--color-pink);
-  color: var(--color-bg);
-  box-shadow: 0 0 20px rgba(223, 2, 74, 0.22);
-}
-
-.action-link-primary:hover {
-  box-shadow: 0 0 26px rgba(223, 2, 74, 0.34);
-}
-
-.action-link-secondary {
-  border: 1px solid rgba(13, 205, 205, 0.5);
-  background: rgba(13, 205, 205, 0.06);
-  color: var(--color-cyan);
-}
-
-.action-link-secondary:hover {
-  background: rgba(13, 205, 205, 0.1);
-  box-shadow: 0 0 22px rgba(13, 205, 205, 0.12);
-}
-
 @keyframes scan-line {
   0% {
     transform: translateY(0);
