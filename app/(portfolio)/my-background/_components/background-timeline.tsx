@@ -7,7 +7,7 @@ export interface TimelineItem {
   date: string;
   title: string;
   subtitle: string;
-  description: string;
+  paragraphs: string[];
 }
 
 const defaultTimelineData: TimelineItem[] = [
@@ -15,37 +15,55 @@ const defaultTimelineData: TimelineItem[] = [
     date: "Node 01",
     title: "Generic Milestone One",
     subtitle: "Placeholder event",
-    description: "Placeholder summary for the first background checkpoint. Replace this with crawler-fed content later."
+    paragraphs: [
+      "Placeholder summary for the first background checkpoint.",
+      "Replace this with crawler-fed content later."
+    ]
   },
   {
     date: "Node 02",
     title: "Generic Milestone Two",
     subtitle: "Placeholder event",
-    description: "Placeholder summary for the second background checkpoint. Replace this with crawler-fed content later."
+    paragraphs: [
+      "Placeholder summary for the second background checkpoint.",
+      "Replace this with crawler-fed content later."
+    ]
   },
   {
     date: "Node 03",
     title: "Generic Milestone Three",
     subtitle: "Placeholder event",
-    description: "Placeholder summary for the third background checkpoint. Replace this with crawler-fed content later."
+    paragraphs: [
+      "Placeholder summary for the third background checkpoint.",
+      "Replace this with crawler-fed content later."
+    ]
   },
   {
     date: "Node 04",
     title: "Generic Milestone Four",
     subtitle: "Placeholder event",
-    description: "Placeholder summary for the fourth background checkpoint. Replace this with crawler-fed content later."
+    paragraphs: [
+      "Placeholder summary for the fourth background checkpoint.",
+      "Replace this with crawler-fed content later."
+    ]
   },
   {
     date: "Node 05",
     title: "Generic Milestone Five",
     subtitle: "Placeholder event",
-    description: "Placeholder summary for the fifth background checkpoint. Replace this with crawler-fed content later."
+    paragraphs: [
+      "Placeholder summary for the fifth background checkpoint.",
+      "Replace this with crawler-fed content later."
+    ]
   },
   {
     date: "Node 06",
     title: "Generic Milestone Six",
     subtitle: "Placeholder event",
-    description: "Placeholder summary for the sixth background checkpoint. Replace this with crawler-fed content later."
+    paragraphs: [
+      "Placeholder summary for the sixth background checkpoint.",
+      "Replace this with crawler-fed content later."
+    ]
   }
 ];
 
@@ -143,7 +161,12 @@ function TimelineEntry({ item, index }: { item: TimelineItem; index: number }) {
           </h4>
           <div className="w-12 h-[1px] bg-[#df024a] mb-4 group-hover:w-20 transition-all duration-500" />
           <p className="text-sm md:text-[13px] leading-relaxed text-[#ee0869]/90 font-medium">
-            {item.description}
+            {item.paragraphs.map((paragraph, paragraphIndex) => (
+              <React.Fragment key={paragraphIndex}>
+                {paragraph}
+                {paragraphIndex < item.paragraphs.length - 1 ? <br /> : null}
+              </React.Fragment>
+            ))}
           </p>
         </div>
       </motion.div>

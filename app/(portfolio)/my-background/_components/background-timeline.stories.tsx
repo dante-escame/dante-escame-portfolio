@@ -17,13 +17,19 @@ const customData: TimelineItem[] = [
     date: "2024",
     title: "Project Alpha",
     subtitle: "Lead Developer",
-    description: "Successfully led a team of 5 to deliver a high-performance web application."
+    paragraphs: [
+      "Successfully led a team of 5 to deliver a high-performance web application.",
+      "Owned the release path from technical planning through production rollout."
+    ]
   },
   {
     date: "2023",
     title: "Senior Engineer",
     subtitle: "Tech Stack Overhaul",
-    description: "Migrated legacy infrastructure to a modern serverless architecture."
+    paragraphs: [
+      "Migrated legacy infrastructure to a modern serverless architecture.",
+      "Reduced operational drag while preserving reliability for existing users."
+    ]
   }
 ];
 

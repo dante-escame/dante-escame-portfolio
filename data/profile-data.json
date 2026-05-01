@@ -6,7 +6,10 @@
       "location": "Limeira - Sao Paulo, Brazil",
       "startDate": "2023-11-01",
       "endDate": null,
-      "description": "Lead the development and delivery of banking and payment products, spanning backend microservices, REST APIs, and high-volume transactional systems (5M+ daily). Acted as Tech Lead for 4+ products, contributing to architectural decisions and mentoring the team."
+      "paragraphs": [
+        "Lead the development and delivery of banking and payment products, spanning backend microservices, REST APIs, and high-volume transactional systems (5M+ daily).",
+        "Acted as Tech Lead for 4+ products, contributing to architectural decisions and mentoring the team."
+      ]
     },
     {
       "company": "Granito Pagamentos (Inter Pag)",
@@ -14,7 +17,10 @@
       "location": "Limeira - Sao Paulo, Brazil",
       "startDate": "2022-10-01",
       "endDate": "2023-11-01",
-      "description": "Developed and maintained financial products using .NET, C#, and Angular. Applied Clean Architecture and SOLID principles in a regulated banking environment, focusing on domain-driven development and pyramid testing (unit, integration, and E2E)."
+      "paragraphs": [
+        "Developed and maintained financial products using .NET, C#, and Angular.",
+        "Applied Clean Architecture and SOLID principles in a regulated banking environment, focusing on domain-driven development and pyramid testing (unit, integration, and E2E)."
+      ]
     },
     {
       "company": "Sistech Sistemas",
@@ -22,7 +28,10 @@
       "location": "Limeira - Sao Paulo, Brazil",
       "startDate": "2021-03-01",
       "endDate": "2022-10-01",
-      "description": "Developed and maintained business-applications using C#, ASP.NET, and Delphi. Focused on factory floor systems with high availability requirements and strong dependency on relational databases like Oracle, SQL Server, and Firebird."
+      "paragraphs": [
+        "Developed and maintained business-applications using C#, ASP.NET, and Delphi.",
+        "Focused on factory floor systems with high availability requirements and strong dependency on relational databases like Oracle, SQL Server, and Firebird."
+      ]
     }
   ],
   "educations": [
