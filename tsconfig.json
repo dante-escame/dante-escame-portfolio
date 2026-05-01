@@ -29,7 +29,9 @@
     "**/*.tsx",
     ".ladle/**/*",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    "node_modules/vitest/globals.d.ts",
+    "node_modules/vitest/globals.d.ts"
   ],
   "exclude": [
     "node_modules"

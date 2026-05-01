@@ -8,6 +8,12 @@ export default {
 
 const frameClassName = "min-h-screen bg-(--color-bg)";
 
+export const ProjectsActive: Story = () => (
+  <div className={frameClassName}>
+    <PortfolioTopNav activeHref="/projects" />
+  </div>
+);
+
 export const WhoAmIActive: Story = () => (
   <div className={frameClassName}>
     <PortfolioTopNav activeHref="/who-am-i" />

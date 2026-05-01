@@ -11,7 +11,9 @@ type StylePanelProps = {
 type StylePanelHeaderProps = {
   eyebrow?: string;
   title: string;
+  titleNode?: React.ReactNode;
   description?: React.ReactNode;
+  descriptionClassName?: string;
   aside?: React.ReactNode;
   className?: string;
   titleAs?: "h2" | "h3" | "h4";
@@ -43,7 +45,9 @@ export function StylePanel({
 export function StylePanelHeader({
   eyebrow,
   title,
+  titleNode,
   description,
+  descriptionClassName,
   aside,
   className,
   titleAs = "h3",
@@ -66,11 +70,18 @@ export function StylePanelHeader({
             {eyebrow}
           </p>
         ) : null}
-        <TitleTag className="text-2xl font-semibold uppercase tracking-[0.14em] text-(--color-heading)">
-          {title}
-        </TitleTag>
+        {titleNode ?? (
+          <TitleTag className="text-2xl font-semibold uppercase tracking-[0.14em] text-(--color-heading)">
+            {title}
+          </TitleTag>
+        )}
         {description ? (
-          <div className="max-w-2xl text-sm leading-7 text-(--color-text) md:text-base">
+          <div
+            className={joinClasses(
+              "text-sm leading-7 text-(--color-text) md:text-base",
+              descriptionClassName ?? "max-w-2xl"
+            )}
+          >
             {description}
           </div>
         ) : null}

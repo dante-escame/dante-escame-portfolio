@@ -1,4 +1,5 @@
 import { DigitalRainBackground } from "../../../src/components/digital-rain-background";
+import { AnimatedSignalTitle } from "../../../src/components/animated-signal-title";
 import { CyberBadge } from "../../../src/components/cyber-badge";
 import { CyberTag } from "../../../src/components/cyber-tag";
 import { StylePanel, StylePanelHeader } from "../../../src/components/style-kit";
@@ -71,6 +72,13 @@ export default async function MyBackgroundPage() {
               description="Let's see how is my journey so far."
               eyebrow="Chronology layer"
               title="Welcome to my background timeline"
+              titleNode={
+                <AnimatedSignalTitle
+                  as="h2"
+                  className="text-2xl"
+                  title="Welcome to my background timeline"
+                />
+              }
               titleAs="h2"
             />
 

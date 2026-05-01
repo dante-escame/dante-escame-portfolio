@@ -12,6 +12,10 @@ const navigationItems = [
     href: "/my-background",
     label: "My Background",
   },
+  {
+    href: "/projects",
+    label: "Projects",
+  },
 ] as const;
 
 type PortfolioTopNavProps = {
