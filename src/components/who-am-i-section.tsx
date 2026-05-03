@@ -104,6 +104,17 @@ export function WhoAmISection() {
 
                     <Link
                       className="relative inline-flex items-center justify-center border border-(--color-cyan) bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.15em] text-(--color-cyan) transition-all duration-200 outline-none hover:bg-(--color-cyan)/10 hover:shadow-[0_0_15px_rgba(13,205,205,0.4)] focus:ring-2 focus:ring-(--color-cyan) focus:ring-offset-2 active:scale-95"
+                      href="/projects"
+                      style={{
+                        clipPath:
+                          "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+                      }}
+                    >
+                      View my projects
+                    </Link>
+
+                    <Link
+                      className="relative inline-flex items-center justify-center border border-(--color-pink) bg-transparent px-6 py-3 text-xs font-black uppercase tracking-[0.15em] text-(--color-pink) transition-all duration-200 outline-none hover:bg-(--color-pink)/10 hover:shadow-[0_0_15px_rgba(223,2,74,0.4)] focus:ring-2 focus:ring-(--color-pink) focus:ring-offset-2 active:scale-95"
                       href="https://www.linkedin.com/in/dante-escame/"
                       rel="noreferrer"
                       style={{
@@ -112,7 +123,7 @@ export function WhoAmISection() {
                       }}
                       target="_blank"
                     >
-                      View my projects
+                      Visit LinkedIn
                     </Link>
                   </div>
                 </div>
