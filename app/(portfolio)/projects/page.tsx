@@ -26,14 +26,14 @@ export default async function ProjectsPage() {
 
   return (
     <main className="min-h-screen overflow-x-hidden text-(--color-text)">
-      <section className="background-page-shell isolate mx-auto min-h-[calc(100vh-53px)] w-full max-w-7xl px-6 py-10 md:px-10 md:py-12">
+      <section className="relative isolate mx-auto min-h-[calc(100vh-53px)] w-full max-w-7xl px-6 py-10 md:px-10 md:py-12">
         <div className="portfolio-background-layer" aria-hidden="true">
-          <div className="intro-loading-grid portfolio-background-grid background-page-grid" />
+          <div className="intro-loading-grid portfolio-background-grid" />
           <DigitalRainBackground className="intro-falling-numbers portfolio-falling-numbers" />
-          <div className="intro-loading-noise portfolio-background-noise background-page-noise" />
+          <div className="intro-loading-noise portfolio-background-noise" />
         </div>
-        <div className="background-page-orb background-page-orb-left" aria-hidden="true" />
-        <div className="background-page-orb background-page-orb-right" aria-hidden="true" />
+        <div className="ambient-orb ambient-orb-left" aria-hidden="true" />
+        <div className="ambient-orb ambient-orb-right" aria-hidden="true" />
 
         <div className="relative z-10 space-y-6 py-4 md:space-y-8 md:py-8">
           <div className="flex flex-wrap items-center gap-3">
