@@ -12,7 +12,35 @@ const introLines = [
   "Immersive Cyberpunk Portfolio",
 ];
 
-const loadingDurationSeconds = 1.5;
+// Minimum display time so the intro text animation always plays through.
+const MIN_DISPLAY_MS = 1200;
+
+async function preloadWithProgress(
+  url: string,
+  onProgress: (pct: number) => void
+): Promise<void> {
+  const response = await fetch(url);
+  const contentLength = response.headers.get("content-length");
+
+  if (!contentLength || !response.body) {
+    await response.arrayBuffer();
+    onProgress(100);
+    return;
+  }
+
+  const total = parseInt(contentLength, 10);
+  const reader = response.body.getReader();
+  let received = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    received += value.length;
+    onProgress(Math.min(99, Math.round((received / total) * 100)));
+  }
+
+  onProgress(100);
+}
 
 export function PortfolioIntroLoader() {
   const router = useRouter();
@@ -33,15 +61,13 @@ export function PortfolioIntroLoader() {
       return;
     }
 
-    const progressState = { value: 0 };
-    const fadeDelay = loadingDurationSeconds - 0.6;
+    // Prefetch the destination route while the intro plays.
+    router.prefetch("/who-am-i");
 
     const context = gsap.context(() => {
-      // Prepares the text stack and progress bar offscreen before the intro begins.
       gsap.set(progressBar, { scaleX: 0, transformOrigin: "left center" });
       gsap.set(activeLines, { autoAlpha: 0, y: 24 });
 
-      // Reveals the main three-line message in sequence at the center of the screen.
       gsap.to(activeLines, {
         autoAlpha: 1,
         duration: 0.82,
@@ -50,39 +76,47 @@ export function PortfolioIntroLoader() {
         y: 0,
       });
 
-      // Brings in the small system-status line above the headline.
       gsap.fromTo(
         ".intro-loading-kicker",
         { autoAlpha: 0, y: 18 },
         { autoAlpha: 1, delay: 0.1, duration: 0.7, ease: "power2.out", y: 0 }
       );
-
-      // Advances the numeric percentage so the screen reads like a boot sequence.
-      gsap.to(progressState, {
-        value: 100,
-        duration: loadingDurationSeconds,
-        ease: "none",
-        onUpdate: () => {
-          setProgress(Math.round(progressState.value));
-        },
-        onComplete: () => {
-          setProgress(100);
-          setIsReady(true);
-        },
-      });
-
-      // Fills the visible loading bar in sync with the percentage readout.
-      gsap.to(progressBar, {
-        scaleX: 1,
-        duration: loadingDurationSeconds,
-        ease: "none",
-      });
     }, root);
 
+    // Smooth bar update driven by real fetch progress.
+    const updateBar = gsap.quickTo(progressBar, "scaleX", {
+      duration: 0.25,
+      ease: "power1.out",
+    });
+
+    let cancelled = false;
+
+    async function load() {
+      const minWait = new Promise<void>((resolve) =>
+        setTimeout(resolve, MIN_DISPLAY_MS)
+      );
+
+      await preloadWithProgress("/profile.jpg", (pct) => {
+        if (cancelled) return;
+        setProgress(pct);
+        updateBar(pct / 100);
+      });
+
+      await minWait;
+
+      if (cancelled) return;
+      setProgress(100);
+      updateBar(1);
+      setIsReady(true);
+    }
+
+    load();
+
     return () => {
+      cancelled = true;
       context.revert();
     };
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const playButton = playButtonRef.current;
