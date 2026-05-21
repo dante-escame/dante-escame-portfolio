@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+
+import { useTranslation } from "../lib/i18n/context";
 import gsap from "gsap";
 
 type TechnologyItem = {
@@ -109,12 +111,15 @@ const defaultItems: TechnologyItem[] = [
 ];
 
 export function PortfolioTechnologiesGrid({
-  eyebrow = "Core stack signal",
-  title = "What I Tend To Build Around",
+  eyebrow,
+  title,
   items = defaultItems,
   className,
 }: PortfolioTechnologiesGridProps) {
   const rootRef = useRef<HTMLElement>(null);
+  const t = useTranslation();
+  const resolvedEyebrow = eyebrow ?? t.technologies.eyebrow;
+  const resolvedTitle = title ?? t.technologies.title;
 
   useEffect(() => {
     const root = rootRef.current;
@@ -171,8 +176,8 @@ export function PortfolioTechnologiesGrid({
     <section ref={rootRef} className={className}>
       <div className="portfolio-tech-shell panel-cut">
         <div className="portfolio-tech-header">
-          <p className="portfolio-tech-eyebrow">{eyebrow}</p>
-          <h2 className="portfolio-tech-title">{title}</h2>
+          <p className="portfolio-tech-eyebrow">{resolvedEyebrow}</p>
+          <h2 className="portfolio-tech-title">{resolvedTitle}</h2>
         </div>
 
         <div className="portfolio-tech-grid">
@@ -185,7 +190,7 @@ export function PortfolioTechnologiesGrid({
         </div>
 
         <p className="portfolio-tech-note">
-          This is my usual stack, but not the boundary of what I can build with. I'm a fast learner that often ramp into new technologies when the product calls for it.
+          {t.technologies.note}
         </p>
       </div>
     </section>

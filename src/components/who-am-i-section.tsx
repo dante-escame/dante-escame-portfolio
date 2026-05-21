@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
+import { useTranslation } from "../lib/i18n/context";
 import { AnimatedRevealText } from "./animated-reveal-text";
 import { AnimatedSignalTitle } from "./animated-signal-title";
 import { CyberBadge } from "./cyber-badge";
@@ -10,26 +13,10 @@ import { IntroAvatar } from "./intro-avatar";
 import { PortfolioTechnologiesGrid } from "./portfolio-technologies-grid";
 import { StylePanel } from "./style-kit";
 
-const sectionBadges = {
-  label: "Who Am I",
-  name: "Dante Escame",
-  role: "Full-stack engineer",
-  availability: "Remote-ready",
-};
-
-const profileSignal = {
-  badge: "Profile signal",
-  title: "Senior Software Engineer",
-  quote: '"Everything should be made as simple as possible, but not simpler."',
-  portraitAlt: "Portrait of Dante Escame",
-};
-
-const introCopy = [
-  "Senior Software Engineer with 6+ years of experience in full-stack development across high-impact, large-scale applications.",
-  "I build products with a delivery mindset and focus on backend performance, by applying market patterns with: .NET, C#, React, Node, Next, AWS, Kubernetes and Docker.",
-];
-
 export function WhoAmISection() {
+  const t = useTranslation();
+  const w = t.whoAmI;
+
   return (
     <main className="min-h-screen overflow-x-hidden text-(--color-text)">
       <section className="relative isolate mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 py-16 md:px-10 md:py-20">
@@ -43,10 +30,10 @@ export function WhoAmISection() {
 
         <div className="relative z-10 space-y-6">
           <div className="flex flex-wrap items-center gap-3">
-            <CyberBadge variant="cyan">{sectionBadges.label}</CyberBadge>
-            <CyberTag variant="pink">{sectionBadges.name}</CyberTag>
-            <CyberTag>{sectionBadges.role}</CyberTag>
-            <CyberTag variant="gold">{sectionBadges.availability}</CyberTag>
+            <CyberBadge variant="cyan">{w.badge}</CyberBadge>
+            <CyberTag variant="pink">{w.name}</CyberTag>
+            <CyberTag>{w.role}</CyberTag>
+            <CyberTag variant="gold">{w.availability}</CyberTag>
           </div>
 
           <div className="space-y-6">
@@ -54,28 +41,27 @@ export function WhoAmISection() {
               <div className="grid gap-5 sm:grid-cols-[128px_1fr] sm:items-center">
                 <div className="top-portrait-frame mx-auto h-32 w-32 sm:mx-0">
                   <Image
-                      alt={profileSignal.portraitAlt}
-                      className="top-portrait-image"
-                      fill
-                      priority
-                      sizes="128px"
-                      src="/profile.jpg"
+                    alt={w.portraitAlt}
+                    className="top-portrait-image"
+                    fill
+                    priority
+                    sizes="128px"
+                    src="/profile.jpg"
                   />
                   <div className="top-portrait-overlay" />
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <CyberBadge variant="purple">{profileSignal.badge}</CyberBadge>
+                    <CyberBadge variant="purple">{w.signalBadge}</CyberBadge>
                   </div>
-                  <AnimatedSignalTitle title={profileSignal.title} />
+                  <AnimatedSignalTitle title={w.signalTitle} />
                   <AnimatedRevealText className="text-sm leading-7 text-(--color-text)/85">
-                    {profileSignal.quote}
+                    {w.quote}
                   </AnimatedRevealText>
                 </div>
               </div>
             </StylePanel>
-
           </div>
 
           <section className="w-full">
@@ -83,10 +69,10 @@ export function WhoAmISection() {
               <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
                 <div className="w-full text-sm leading-7 text-(--color-text) md:text-base">
                   <AnimatedRevealText>
-                    {introCopy[0]}
+                    {w.introPara1}
                   </AnimatedRevealText>
                   <AnimatedRevealText className="mt-4" delay={0.12}>
-                    {introCopy[1]}
+                    {w.introPara2}
                   </AnimatedRevealText>
 
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -99,7 +85,7 @@ export function WhoAmISection() {
                           "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
                       }}
                     >
-                      Download My Resume
+                      {w.resumeBtn}
                     </Link>
 
                     <Link
@@ -110,7 +96,7 @@ export function WhoAmISection() {
                           "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
                       }}
                     >
-                      View my projects
+                      {w.projectsBtn}
                     </Link>
 
                     <Link
@@ -123,7 +109,7 @@ export function WhoAmISection() {
                       }}
                       target="_blank"
                     >
-                      Visit LinkedIn
+                      {w.linkedinBtn}
                     </Link>
                   </div>
                 </div>
@@ -134,7 +120,6 @@ export function WhoAmISection() {
           </section>
 
           <PortfolioTechnologiesGrid />
-
         </div>
       </section>
     </main>

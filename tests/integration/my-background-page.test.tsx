@@ -1,9 +1,14 @@
 import { render, screen } from "@testing-library/react"
 
 import MyBackgroundPage from "../../app/(portfolio)/my-background/page"
+import { messages } from "../../src/lib/i18n/messages"
 
 vi.mock("../../src/lib/background", () => ({
   getBackgroundTimelineItems: vi.fn(),
+}))
+
+vi.mock("../../src/lib/i18n/server", () => ({
+  getServerTranslation: vi.fn(),
 }))
 
 vi.mock("../../app/(portfolio)/my-background/_components/background-timeline", () => ({
@@ -24,9 +29,11 @@ vi.mock("../../app/(portfolio)/my-background/_components/background-timeline", (
 }))
 
 const { getBackgroundTimelineItems } = await import("../../src/lib/background")
+const { getServerTranslation } = await import("../../src/lib/i18n/server")
 
 describe("MyBackgroundPage", () => {
   it("renders the timeline heading and fetched entries", async () => {
+    vi.mocked(getServerTranslation).mockResolvedValue(messages["en"])
     vi.mocked(getBackgroundTimelineItems).mockResolvedValue([
       {
         date: "2018 - 2020",
@@ -57,6 +64,7 @@ describe("MyBackgroundPage", () => {
   })
 
   it("falls back gracefully when the timeline source is empty", async () => {
+    vi.mocked(getServerTranslation).mockResolvedValue(messages["en"])
     vi.mocked(getBackgroundTimelineItems).mockResolvedValue([])
 
     render(await MyBackgroundPage())

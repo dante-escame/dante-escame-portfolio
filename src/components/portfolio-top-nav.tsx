@@ -3,28 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navigationItems = [
-  {
-    href: "/who-am-i",
-    label: "Who Am I ?",
-  },
-  {
-    href: "/my-background",
-    label: "My Background",
-  },
-  {
-    href: "/projects",
-    label: "Projects",
-  },
-] as const;
+import { useTranslation } from "../lib/i18n/context";
+import { LanguageSelector } from "./language-selector";
+
+type NavHref = "/who-am-i" | "/my-background" | "/projects";
 
 type PortfolioTopNavProps = {
-  activeHref?: (typeof navigationItems)[number]["href"];
+  activeHref?: NavHref;
 };
 
 export function PortfolioTopNav({ activeHref }: PortfolioTopNavProps) {
   const pathname = usePathname();
   const currentHref = activeHref ?? pathname;
+  const t = useTranslation();
+
+  const navigationItems = [
+    { href: "/who-am-i" as const, label: t.nav.whoAmI },
+    { href: "/my-background" as const, label: t.nav.myBackground },
+    { href: "/projects" as const, label: t.nav.projects },
+  ];
 
   return (
     <nav
@@ -52,6 +49,7 @@ export function PortfolioTopNav({ activeHref }: PortfolioTopNavProps) {
             </Link>
           );
         })}
+        <LanguageSelector />
       </div>
     </nav>
   );

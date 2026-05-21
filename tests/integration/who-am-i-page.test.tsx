@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react"
 
+import { LocaleProvider } from "../../src/lib/i18n/context"
 import WhoAmIPage from "../../app/(portfolio)/who-am-i/page"
 
 describe("WhoAmIPage", () => {
   it("renders the portfolio introduction and primary navigation actions", () => {
-    render(<WhoAmIPage />)
+    render(
+      <LocaleProvider initialLocale="en">
+        <WhoAmIPage />
+      </LocaleProvider>
+    )
 
     expect(screen.getByText("Senior Software Engineer")).toBeInTheDocument()
     expect(

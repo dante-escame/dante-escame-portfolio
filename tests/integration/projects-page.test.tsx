@@ -1,18 +1,25 @@
 import { render, screen } from "@testing-library/react"
 
 import ProjectsPage from "../../app/(portfolio)/projects/page"
+import { messages } from "../../src/lib/i18n/messages"
 
 vi.mock("../../src/lib/github-profile-projects", () => ({
   githubProjectsRevalidateSeconds: 21600,
   getGithubProfileProjects: vi.fn(),
 }))
 
+vi.mock("../../src/lib/i18n/server", () => ({
+  getServerTranslation: vi.fn(),
+}))
+
 const { getGithubProfileProjects } = await import(
   "../../src/lib/github-profile-projects"
 )
+const { getServerTranslation } = await import("../../src/lib/i18n/server")
 
 describe("ProjectsPage", () => {
   it("renders featured items and parsed GitHub items", async () => {
+    vi.mocked(getServerTranslation).mockResolvedValue(messages["en"])
     vi.mocked(getGithubProfileProjects).mockResolvedValue({
       projects: [
         {
@@ -64,6 +71,7 @@ describe("ProjectsPage", () => {
   })
 
   it("renders the fallback GitHub state when upstream fetch fails", async () => {
+    vi.mocked(getServerTranslation).mockResolvedValue(messages["en"])
     vi.mocked(getGithubProfileProjects).mockResolvedValue({
       projects: [],
       error: "The GitHub project feed is temporarily unavailable.",

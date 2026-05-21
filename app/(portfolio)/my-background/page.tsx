@@ -4,11 +4,17 @@ import { CyberBadge } from "../../../src/components/cyber-badge";
 import { CyberTag } from "../../../src/components/cyber-tag";
 import { StylePanel, StylePanelHeader } from "../../../src/components/style-kit";
 import { getBackgroundTimelineItems } from "../../../src/lib/background";
+import { getServerTranslation } from "../../../src/lib/i18n/server";
 
 import { BackgroundTimeline } from "./_components/background-timeline";
 
 export default async function MyBackgroundPage() {
-  const timelineItems = await getBackgroundTimelineItems();
+  const [timelineItems, t] = await Promise.all([
+    getBackgroundTimelineItems(),
+    getServerTranslation(),
+  ]);
+
+  const bg = t.background;
 
   return (
     <main className="min-h-screen overflow-x-hidden text-(--color-text)">
@@ -26,21 +32,21 @@ export default async function MyBackgroundPage() {
 
         <div className="relative z-10 space-y-6 py-4 md:py-8">
           <div className="flex flex-wrap items-center gap-3">
-            <CyberBadge variant="cyan">My Background</CyberBadge>
-            <CyberTag variant="pink">Timeline feed</CyberTag>
-            <CyberTag variant="gold">Vertical mode</CyberTag>
+            <CyberBadge variant="cyan">{bg.badge}</CyberBadge>
+            <CyberTag variant="pink">{bg.feedTag}</CyberTag>
+            <CyberTag variant="gold">{bg.verticalTag}</CyberTag>
           </div>
 
           <StylePanel className="space-y-8 p-5 md:p-8">
             <StylePanelHeader
-              description="Let's see how is my journey so far."
-              eyebrow="Chronology layer"
-              title="Welcome to my background timeline"
+              description={bg.description}
+              eyebrow={bg.eyebrow}
+              title={bg.title}
               titleNode={
                 <AnimatedSignalTitle
                   as="h2"
                   className="text-2xl"
-                  title="Welcome to my background timeline"
+                  title={bg.title}
                 />
               }
               titleAs="h2"

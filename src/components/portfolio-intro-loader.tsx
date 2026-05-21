@@ -4,13 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 
+import { useTranslation } from "../lib/i18n/context";
 import { DigitalRainBackground } from "./digital-rain-background";
-
-const introLines = [
-  "Hi, i'm Dante.",
-  "and this is my",
-  "Immersive Cyberpunk Portfolio",
-];
 
 // Minimum display time so the intro text animation always plays through.
 const MIN_DISPLAY_MS = 1200;
@@ -51,6 +46,9 @@ export function PortfolioIntroLoader() {
   const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const t = useTranslation();
+
+  const introLines = [t.intro.greeting, t.intro.tagline, t.intro.title];
 
   useEffect(() => {
     const root = rootRef.current;
@@ -160,7 +158,7 @@ export function PortfolioIntroLoader() {
       <div className="intro-loading-noise" aria-hidden="true" />
 
       <section className="intro-loading-content" aria-label="Portfolio intro loading screen">
-        <p className="intro-loading-kicker">signal boot / dante-escame.portfolio</p>
+        <p className="intro-loading-kicker">{t.intro.bootSignal}</p>
 
         <div className="intro-loading-title-block">
           {introLines.map((line, index) => {
@@ -168,7 +166,7 @@ export function PortfolioIntroLoader() {
 
             return (
               <p
-                key={line}
+                key={index}
                 ref={(element) => {
                   lineRefs.current[index] = element;
                 }}
@@ -186,7 +184,7 @@ export function PortfolioIntroLoader() {
             <div ref={progressBarRef} className="intro-loading-progress-bar" />
           </div>
           <div className="intro-loading-progress-meta">
-            <span>immersive mode loading</span>
+            <span>{t.intro.immersiveMode}</span>
             <span>{progress}%</span>
           </div>
         </div>
@@ -198,7 +196,7 @@ export function PortfolioIntroLoader() {
           onClick={handlePlay}
           type="button"
         >
-          {isReady ? "Play" : "Locked"}
+          {isReady ? t.intro.playBtn : t.intro.lockedBtn}
         </button>
       </section>
     </main>

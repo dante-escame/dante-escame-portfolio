@@ -5,6 +5,7 @@ import { AnimatedSignalTitle } from "../../../src/components/animated-signal-tit
 import { StylePanel, StylePanelHeader } from "../../../src/components/style-kit"
 import { getGithubProfileProjects } from "../../../src/lib/github-profile-projects"
 import { buildFeaturedProjects } from "../../../src/lib/projects"
+import { getServerTranslation } from "../../../src/lib/i18n/server"
 
 import { ProjectCard } from "./_components/project-card"
 
@@ -13,8 +14,10 @@ export const revalidate = 21600
 const featuredProjectSlugs = ["event-union", "evently", "readbot"] as const
 
 export default async function ProjectsPage() {
-  const { projects: githubProjects, error: githubProjectsError } =
-    await getGithubProfileProjects()
+  const [{ projects: githubProjects, error: githubProjectsError }, t] = await Promise.all([
+    getGithubProfileProjects(),
+    getServerTranslation(),
+  ])
   const featuredProjects = buildFeaturedProjects(
     githubProjects,
     [...featuredProjectSlugs]
@@ -23,6 +26,8 @@ export default async function ProjectsPage() {
   const remainingGithubProjects = githubProjects.filter(
     (project) => !featuredProjectSlugSet.has(project.slug)
   )
+
+  const p = t.projects
 
   return (
     <main className="min-h-screen overflow-x-hidden text-(--color-text)">
@@ -37,27 +42,27 @@ export default async function ProjectsPage() {
 
         <div className="relative z-10 space-y-6 py-4 md:space-y-8 md:py-8">
           <div className="flex flex-wrap items-center gap-3">
-            <CyberBadge variant="cyan">Projects</CyberBadge>
-            <CyberTag variant="pink">My Projects</CyberTag>
-            <CyberTag variant="gold">Curated</CyberTag>
-            <CyberTag variant="gold">Live</CyberTag>
+            <CyberBadge variant="cyan">{p.badge}</CyberBadge>
+            <CyberTag variant="pink">{p.myProjectsBadge}</CyberTag>
+            <CyberTag variant="gold">{p.curatedTag}</CyberTag>
+            <CyberTag variant="gold">{p.liveTag}</CyberTag>
           </div>
 
           <section aria-labelledby="featured-work-title" className="space-y-4">
             <StylePanel className="space-y-6 p-5 md:p-8">
               <StylePanelHeader
-                eyebrow="Featured Work"
-                title="Featured Projects"
+                eyebrow={p.featuredEyebrow}
+                title={p.featuredTitle}
                 titleNode={
                   <AnimatedSignalTitle
                     as="h2"
                     className="text-2xl"
-                    title="Featured Projects"
+                    title={p.featuredTitle}
                   />
                 }
                 titleAs="h2"
                 descriptionClassName="w-full max-w-none"
-                description="These cards are selected from the GitHub project feed by slug, so this section stays curated without maintaining a separate content source."
+                description={p.featuredDesc}
               />
 
               {featuredProjects.length > 0 ? (
@@ -71,8 +76,7 @@ export default async function ProjectsPage() {
                   className="rounded-none border border-(--color-border) bg-(--color-accent)/8 px-4 py-4 text-sm leading-7 text-(--color-text)/84"
                   role="status"
                 >
-                  Featured projects are temporarily unavailable because the GitHub
-                  project feed could not be loaded.
+                  {p.featuredError}
                 </div>
               )}
             </StylePanel>
@@ -81,20 +85,20 @@ export default async function ProjectsPage() {
           <section aria-labelledby="from-github-title" className="space-y-4">
             <StylePanel className="space-y-6 p-5 md:p-8" tone="cyan">
               <StylePanelHeader
-                eyebrow="From GitHub"
-                title="Live public project feed"
+                eyebrow={p.githubEyebrow}
+                title={p.githubTitle}
                 titleNode={
                   <AnimatedSignalTitle
                     as="h2"
                     className="text-2xl"
                     delay={0.08}
-                    title="Live public project feed"
+                    title={p.githubTitle}
                   />
                 }
                 titleAs="h2"
                 tone="cyan"
                 descriptionClassName="w-full max-w-none"
-                description="All of the data in this page is being dinamically fetched from my Github!"
+                description={p.githubDesc}
               />
 
               {remainingGithubProjects.length > 0 ? (
@@ -109,10 +113,9 @@ export default async function ProjectsPage() {
                   role="status"
                 >
                   <div className="flex flex-wrap items-center gap-3">
-                    <CyberBadge variant="cyan">Feed unavailable</CyberBadge>
+                    <CyberBadge variant="cyan">{p.feedUnavailable}</CyberBadge>
                     <span>
-                      {githubProjectsError ??
-                        "GitHub projects could not be loaded right now."}
+                      {githubProjectsError ?? p.githubError}
                     </span>
                   </div>
                 </div>

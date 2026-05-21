@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react"
 
+import { LocaleProvider } from "../../src/lib/i18n/context"
 import { PortfolioTopNav } from "../../src/components/portfolio-top-nav"
 
 vi.mock("next/navigation", () => ({
@@ -12,7 +13,11 @@ describe("PortfolioTopNav", () => {
   it("shows Projects and highlights it on the projects route", () => {
     vi.mocked(usePathname).mockReturnValue("/projects")
 
-    render(<PortfolioTopNav />)
+    render(
+      <LocaleProvider initialLocale="en">
+        <PortfolioTopNav />
+      </LocaleProvider>
+    )
 
     const projectsLink = screen.getByRole("link", { name: "Projects" })
 
