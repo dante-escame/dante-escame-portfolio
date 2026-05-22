@@ -34,10 +34,14 @@ export function DigitalRainBackground({ className = "intro-falling-numbers" }: D
         const char = document.createElement("div");
         const opacity = (Math.random() * 0.45 + 0.12).toFixed(2);
 
+        const shadowColor = getComputedStyle(document.documentElement)
+          .getPropertyValue("--falling-char-shadow-color")
+          .trim();
+
         char.className = "intro-falling-char";
         char.textContent = fallingChars[Math.floor(Math.random() * fallingChars.length)];
         char.style.opacity = opacity;
-        char.style.textShadow = `0 0 ${4 + Number(opacity) * 8}px rgba(223, 2, 74, 0.7)`;
+        char.style.textShadow = `0 0 ${4 + Number(opacity) * 8}px ${shadowColor || "rgba(223, 2, 74, 0.7)"}`;
         column.appendChild(char);
       }
 

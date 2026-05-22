@@ -87,11 +87,11 @@ export function BackgroundTimeline({ items = defaultTimelineData }: BackgroundTi
 
   return (
     <div ref={containerRef} className="relative max-w-6xl mx-auto py-16 px-6">
-      {/* Animated Vertical Line - Centered on desktop, left on mobile */}
-      <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-purple-900/20">
+      {/* Animated Vertical Line */}
+      <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-(--color-accent)/20">
         <motion.div
           style={{ scaleY, originY: 0 }}
-          className="absolute top-0 left-0 right-0 bottom-0 w-full bg-[#800080] origin-top shadow-[0_0_15px_rgba(128,0,128,0.6)]"
+          className="absolute top-0 left-0 right-0 bottom-0 w-full bg-(--color-accent) origin-top [box-shadow:0_0_15px_var(--color-border)]"
         />
       </div>
 
@@ -111,12 +111,12 @@ function TimelineEntry({ item, index }: { item: TimelineItem; index: number }) {
     <div className={`relative flex flex-col md:flex-row items-center justify-between w-full ${isEven ? "md:flex-row" : "md:flex-row-reverse"}`}>
       {/* Centered Dot */}
       <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 flex flex-col items-center z-10">
-         <motion.div 
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            className="w-4 h-4 rounded-full bg-[#df024a] border-2 border-[#f6d8ff] shadow-[0_0_12px_rgba(223,2,74,0.8)]" 
-         />
+        <motion.div
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          className="w-4 h-4 rounded-full bg-(--color-pink) border-2 border-(--color-heading) [box-shadow:0_0_12px_var(--color-pink)]"
+        />
       </div>
 
       {/* Date (Opposite side on desktop) */}
@@ -127,9 +127,9 @@ function TimelineEntry({ item, index }: { item: TimelineItem; index: number }) {
         className={`hidden md:flex md:w-[42%] ${isEven ? "justify-end text-right" : "justify-start text-left"}`}
       >
         <div className="flex flex-col">
-           <span className="text-sm font-bold uppercase tracking-[0.3em] text-[#0dcdcd] px-3 py-1 bg-[#0dcdcd]/5 border-r-2 md:border-r-0 md:border-l-2 md:border-[#0dcdcd]/40 border-[#0dcdcd]/40">
-             {item.date}
-           </span>
+          <span className="text-sm font-bold uppercase tracking-[0.3em] text-(--color-cyan) px-3 py-1 bg-(--color-cyan)/5 border-r-2 md:border-r-0 md:border-l-2 border-(--color-cyan)/40">
+            {item.date}
+          </span>
         </div>
       </motion.div>
 
@@ -144,23 +144,23 @@ function TimelineEntry({ item, index }: { item: TimelineItem; index: number }) {
         transition={{ duration: 0.6 }}
         className="w-full md:w-[42%] pl-16 md:pl-0"
       >
-        <div 
-          className="relative p-6 md:p-8 border border-purple-500/20 backdrop-blur-md hover:border-purple-500/60 transition-all duration-500 group"
-          style={{ background: "rgba(8, 4, 13, 0.85)" }}
+        <div
+          className="relative p-6 md:p-8 border border-(--color-accent)/20 backdrop-blur-md hover:border-(--color-accent)/60 transition-all duration-500 group"
+          style={{ background: "var(--color-panel)" }}
         >
           {/* Mobile Date Label */}
-          <div className="md:hidden mb-4 inline-block px-2 py-0.5 text-[10px] font-bold tracking-widest text-[#0dcdcd] border border-[#0dcdcd]/30 uppercase">
-             {item.date}
+          <div className="md:hidden mb-4 inline-block px-2 py-0.5 text-[10px] font-bold tracking-widest text-(--color-cyan) border border-(--color-cyan)/30 uppercase">
+            {item.date}
           </div>
 
-          <h3 className="text-xl md:text-2xl font-bold mb-2 text-[#f6d8ff] group-hover:text-white transition-colors">
+          <h3 className="text-xl md:text-2xl font-bold mb-2 text-(--color-heading) group-hover:text-white transition-colors">
             {item.title}
           </h3>
-          <h4 className="text-xs md:text-sm font-semibold mb-4 text-[#0dcdcd] tracking-widest uppercase">
+          <h4 className="text-xs md:text-sm font-semibold mb-4 text-(--color-cyan) tracking-widest uppercase">
             {item.subtitle}
           </h4>
-          <div className="w-12 h-[1px] bg-[#df024a] mb-4 group-hover:w-20 transition-all duration-500" />
-          <p className="text-sm md:text-[13px] leading-relaxed text-[#ee0869]/90 font-medium">
+          <div className="w-12 h-[1px] bg-(--color-pink) mb-4 group-hover:w-20 transition-all duration-500" />
+          <p className="text-sm md:text-[13px] leading-relaxed text-(--color-text)/90 font-medium">
             {item.paragraphs.map((paragraph, paragraphIndex) => (
               <React.Fragment key={paragraphIndex}>
                 {paragraph}

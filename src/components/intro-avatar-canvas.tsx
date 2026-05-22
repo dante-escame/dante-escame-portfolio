@@ -6,11 +6,14 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { EdgesGeometry, Group, LineBasicMaterial, LineSegments } from "three";
 import * as THREE from "three";
 
+import { useThemeTokens } from "../lib/theme/context";
+
 type AvatarModelProps = {
   isInteracting: boolean;
+  wireframeColor: string;
 };
 
-function AvatarModel({ isInteracting }: AvatarModelProps) {
+function AvatarModel({ isInteracting, wireframeColor }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
   const wireframeGroupRef = useRef<Group>(null);
   const { scene } = useGLTF("/base.glb");
@@ -43,7 +46,7 @@ function AvatarModel({ isInteracting }: AvatarModelProps) {
       const line = new LineSegments(
         edges,
         new LineBasicMaterial({
-          color: "#df024a",
+          color: wireframeColor,
           transparent: true,
           opacity: 0.92,
         }),
@@ -66,7 +69,7 @@ function AvatarModel({ isInteracting }: AvatarModelProps) {
         }
       }
     };
-  }, [scene]);
+  }, [scene, wireframeColor]);
 
   useFrame((_, delta) => {
     if (isInteracting) {
@@ -89,6 +92,7 @@ useGLTF.preload("/base.glb");
 
 export function IntroAvatarCanvas() {
   const [isInteracting, setIsInteracting] = useState(false);
+  const { canvas } = useThemeTokens();
 
   return (
     <Canvas
@@ -96,10 +100,10 @@ export function IntroAvatarCanvas() {
       gl={{ alpha: true, antialias: true }}
     >
       <ambientLight intensity={0.55} />
-      <pointLight color="#df024a" intensity={18} position={[4, 6, 10]} />
-      <pointLight color="#800080" intensity={14} position={[-6, 0, 8]} />
-      <pointLight color="#0dcdcd" intensity={8} position={[0, -5, 6]} />
-      <directionalLight color="#f6d8ff" intensity={0.8} position={[2, 7, 4]} />
+      <pointLight color={canvas.light1} intensity={18} position={[4, 6, 10]} />
+      <pointLight color={canvas.light2} intensity={14} position={[-6, 0, 8]} />
+      <pointLight color={canvas.light3} intensity={8} position={[0, -5, 6]} />
+      <directionalLight color={canvas.ambient} intensity={0.8} position={[2, 7, 4]} />
 
       <OrbitControls
         enablePan={false}
@@ -112,7 +116,7 @@ export function IntroAvatarCanvas() {
       />
 
       <Suspense fallback={null}>
-        <AvatarModel isInteracting={isInteracting} />
+        <AvatarModel isInteracting={isInteracting} wireframeColor={canvas.wireframe} />
       </Suspense>
     </Canvas>
   );

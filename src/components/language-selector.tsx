@@ -15,7 +15,7 @@ export function LanguageSelector() {
   return (
     <div
       aria-label="Language selector"
-      className="ml-auto flex items-center gap-1"
+      className="flex items-center gap-1"
       role="group"
     >
       {locales.map(({ code, label }) => {

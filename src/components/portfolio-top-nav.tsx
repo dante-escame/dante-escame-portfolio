@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { useTranslation } from "../lib/i18n/context";
 import { LanguageSelector } from "./language-selector";
+import { ThemeSelector } from "./theme-selector";
 
 type NavHref = "/who-am-i" | "/my-background" | "/projects";
 
@@ -49,7 +50,10 @@ export function PortfolioTopNav({ activeHref }: PortfolioTopNavProps) {
             </Link>
           );
         })}
-        <LanguageSelector />
+        <div className="ml-auto flex items-center gap-2">
+          <ThemeSelector />
+          <LanguageSelector />
+        </div>
       </div>
     </nav>
   );

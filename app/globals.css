@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  /* Defaults — overridden at runtime by ThemeProvider and at SSR by layout.tsx inline styles */
   --color-bg: #010104;
   --color-bg-elevated: #08040d;
   --color-panel: rgba(12, 4, 18, 0.92);
@@ -13,6 +14,13 @@
   --color-border: rgba(128, 0, 128, 0.52);
   --color-border-cyan: rgba(13, 205, 205, 0.48);
   --shadow-glow-soft: 0 0 24px rgba(128, 0, 128, 0.32);
+  --body-bg:
+    radial-gradient(circle at top, rgba(128, 0, 128, 0.12), transparent 26%),
+    radial-gradient(circle at 82% 16%, rgba(13, 205, 205, 0.05), transparent 18%),
+    linear-gradient(180deg, #06020a 0%, #020104 46%, #000001 100%);
+  --body-grid-color: rgba(128, 0, 128, 0.08);
+  --falling-char-color: rgba(223, 2, 74, 0.78);
+  --falling-char-shadow-color: rgba(223, 2, 74, 0.7);
 }
 
 * {
@@ -26,10 +34,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(128, 0, 128, 0.12), transparent 26%),
-    radial-gradient(circle at 82% 16%, rgba(13, 205, 205, 0.05), transparent 18%),
-    linear-gradient(180deg, #06020a 0%, #020104 46%, #000001 100%);
+  background: var(--body-bg);
   color: var(--color-text);
   font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", monospace;
   font-size: 12px;
@@ -40,8 +45,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(128, 0, 128, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(128, 0, 128, 0.08) 1px, transparent 1px);
+    linear-gradient(var(--body-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--body-grid-color) 1px, transparent 1px);
   background-size: 72px 72px;
   content: "";
   opacity: 0.18;
@@ -126,8 +131,8 @@ body::before {
 }
 
 .portfolio-falling-numbers .intro-falling-char {
-  color: rgba(223, 2, 74, 0.42);
-  text-shadow: 0 0 10px rgba(223, 2, 74, 0.18);
+  color: var(--falling-char-color);
+  text-shadow: 0 0 10px var(--falling-char-shadow-color);
 }
 
 .portfolio-background-noise {
@@ -171,7 +176,7 @@ body::before {
 .portfolio-tech-note {
   width: 100%;
   margin: 1.5rem 0 0;
-  color: rgba(238, 8, 105, 0.88);
+  color: var(--color-text);
   font-size: 0.95rem;
   line-height: 1.8;
 }
@@ -253,7 +258,7 @@ body::before {
 }
 
 .intro-falling-char {
-  color: rgba(223, 2, 74, 0.78);
+  color: var(--falling-char-color);
   font-size: clamp(0.65rem, 0.8vw, 0.95rem);
   font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", monospace;
   user-select: none;
@@ -670,6 +675,141 @@ a {
   50% {
     opacity: 0.72;
     transform: scale(1.08);
+  }
+}
+
+/* ===== Theme Transition Overlay ===== */
+
+.theme-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--body-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.theme-transition-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-cyan) 50%, transparent 100%);
+  opacity: 0.55;
+  animation: theme-transition-scan 1s linear forwards;
+}
+
+@keyframes theme-transition-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  85% {
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.theme-transition-rain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.theme-transition-rain-column {
+  position: absolute;
+  top: -30%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  color: var(--falling-char-color);
+  animation: intro-fall linear forwards;
+  will-change: transform;
+}
+
+.theme-transition-rain-char {
+  line-height: 1;
+  text-shadow: 0 0 5px var(--falling-char-shadow-color);
+}
+
+.theme-transition-badge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 1.1rem 2.25rem;
+  border: 1px solid var(--color-cyan);
+  background: var(--color-panel);
+  backdrop-filter: blur(10px);
+}
+
+.theme-transition-badge-corner {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-color: var(--color-cyan);
+  border-style: solid;
+}
+
+.theme-transition-badge-corner--tl {
+  top: -2px;
+  left: -2px;
+  border-width: 2px 0 0 2px;
+}
+
+.theme-transition-badge-corner--tr {
+  top: -2px;
+  right: -2px;
+  border-width: 2px 2px 0 0;
+}
+
+.theme-transition-badge-corner--bl {
+  bottom: -2px;
+  left: -2px;
+  border-width: 0 0 2px 2px;
+}
+
+.theme-transition-badge-corner--br {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 2px 2px 0;
+}
+
+.theme-transition-badge-label {
+  font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.26em;
+  color: var(--color-heading);
+}
+
+.theme-transition-badge-sub {
+  font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.32em;
+  color: var(--color-cyan);
+  animation: theme-transition-blink 0.75s step-end infinite;
+}
+
+@keyframes theme-transition-blink {
+  0%, 100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 0.15;
   }
 }
 
