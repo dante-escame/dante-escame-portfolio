@@ -1,10 +1,9 @@
 "use client";
 
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { EdgesGeometry, Group, LineBasicMaterial, LineSegments } from "three";
-import * as THREE from "three";
+import { EdgesGeometry, Group, Mesh } from "three";
 
 import { useThemeTokens } from "../lib/theme/context";
 
@@ -15,61 +14,20 @@ type AvatarModelProps = {
 
 function AvatarModel({ isInteracting, wireframeColor }: AvatarModelProps) {
   const groupRef = useRef<Group>(null);
-  const wireframeGroupRef = useRef<Group>(null);
   const { scene } = useGLTF("/base.glb");
 
-  useEffect(() => {
-    const wireframeGroup = wireframeGroupRef.current;
-    if (!wireframeGroup) {
-      return;
-    }
-
-    while (wireframeGroup.children.length > 0) {
-      const child = wireframeGroup.children[0];
-      wireframeGroup.remove(child);
-
-      if (child instanceof LineSegments) {
-        child.geometry.dispose();
-
-        if (child.material instanceof LineBasicMaterial) {
-          child.material.dispose();
-        }
-      }
-    }
+  // Edge extraction is expensive, so it only depends on the model, never on the theme color.
+  const edgeGeometries = useMemo(() => {
+    const geometries: EdgesGeometry[] = [];
 
     scene.traverse((child) => {
-      if (!(child instanceof THREE.Mesh) || !child.geometry) {
-        return;
+      if (child instanceof Mesh && child.geometry) {
+        geometries.push(new EdgesGeometry(child.geometry));
       }
-
-      const edges = new EdgesGeometry(child.geometry);
-      const line = new LineSegments(
-        edges,
-        new LineBasicMaterial({
-          color: wireframeColor,
-          transparent: true,
-          opacity: 0.92,
-        }),
-      );
-
-      wireframeGroup.add(line);
     });
 
-    return () => {
-      while (wireframeGroup.children.length > 0) {
-        const child = wireframeGroup.children[0];
-        wireframeGroup.remove(child);
-
-        if (child instanceof LineSegments) {
-          child.geometry.dispose();
-
-          if (child.material instanceof LineBasicMaterial) {
-            child.material.dispose();
-          }
-        }
-      }
-    };
-  }, [scene, wireframeColor]);
+    return geometries;
+  }, [scene]);
 
   useFrame((_, delta) => {
     if (isInteracting) {
@@ -83,7 +41,11 @@ function AvatarModel({ isInteracting, wireframeColor }: AvatarModelProps) {
 
   return (
     <group ref={groupRef} position={[0, -3.9, 0]} scale={[4.7, 4.7, 4.7]}>
-      <group ref={wireframeGroupRef} />
+      {edgeGeometries.map((geometry, index) => (
+        <lineSegments key={index} geometry={geometry}>
+          <lineBasicMaterial color={wireframeColor} opacity={0.92} transparent />
+        </lineSegments>
+      ))}
     </group>
   );
 }

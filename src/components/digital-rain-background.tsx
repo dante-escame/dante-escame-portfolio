@@ -20,6 +20,9 @@ export function DigitalRainBackground({ className = "intro-falling-numbers" }: D
 
     const columnCount = window.innerWidth < 768 ? 22 : 34;
     const columns: HTMLDivElement[] = [];
+    const shadowColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--falling-char-shadow-color")
+      .trim();
 
     for (let index = 0; index < columnCount; index += 1) {
       const column = document.createElement("div");
@@ -33,10 +36,6 @@ export function DigitalRainBackground({ className = "intro-falling-numbers" }: D
       for (let charIndex = 0; charIndex < charCount; charIndex += 1) {
         const char = document.createElement("div");
         const opacity = (Math.random() * 0.45 + 0.12).toFixed(2);
-
-        const shadowColor = getComputedStyle(document.documentElement)
-          .getPropertyValue("--falling-char-shadow-color")
-          .trim();
 
         char.className = "intro-falling-char";
         char.textContent = fallingChars[Math.floor(Math.random() * fallingChars.length)];
